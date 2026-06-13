@@ -32,10 +32,8 @@ function getCandidateModels() {
   return [
     configuredModel,
     "gemini-2.0-flash",
-    "gemini-flash-latest",
-    "gemini-3.5-flash", // User requested
-    "gemini-2.5-flash",
-    "gemini-2.5-flash-lite"
+    "gemini-1.5-flash",
+    "gemini-1.5-flash-latest"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -159,7 +157,7 @@ export async function POST(req: Request) {
     const API_KEY = process.env.GEMINI_API_KEY?.trim() || "";
 
     if (!API_KEY) {
-      return NextResponse.json({ error: "Gemini API Key is not configured. Please add GEMINI_API_KEY to your environment variables." }, { status: 500 });
+      return NextResponse.json({ error: "Gemini API Key is not configured in .env.local. Please ensure the file exists in the project root and restart your development server." }, { status: 500 });
     }
 
     const genAI = new GoogleGenerativeAI(API_KEY);
