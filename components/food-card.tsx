@@ -51,7 +51,7 @@ export function FoodCard({ listing, compact = false }: { listing: FoodListing; c
   }
 
   return (
-    <article className="group glass-card overflow-hidden transition duration-300 hover:-translate-y-1">
+    <article className="group glass-card motion-card shine-surface overflow-hidden">
       <div className="retro-titlebar">
         <span className="retro-dot" />
         <span className="retro-dot" />
@@ -69,7 +69,7 @@ export function FoodCard({ listing, compact = false }: { listing: FoodListing; c
           <StatusPill type="status">{status}</StatusPill>
           <StatusPill type="freshness">{listing.freshness}</StatusPill>
         </div>
-        <div className="absolute bottom-4 right-4 border-4 border-black bg-[#b7e4c7] px-3 py-1 text-xs font-black text-black">
+        <div className="animate-pop absolute bottom-4 right-4 border-4 border-black bg-[#b7e4c7] px-3 py-1 text-xs font-black text-black">
           {listing.matchedScore}% match
         </div>
       </div>
@@ -110,7 +110,7 @@ export function FoodCard({ listing, compact = false }: { listing: FoodListing; c
         </div>
 
         {confirmation ? (
-          <div className="border-4 border-black bg-[#b7e4c7] p-4 text-sm font-bold text-black">
+            <div className="animate-pop border-4 border-black bg-[#b7e4c7] p-4 text-sm font-bold text-black">
             <div className="mb-1 flex items-center gap-2 font-bold">
               <CheckCircle2 className="size-4" /> Pickup reserved
             </div>
@@ -125,7 +125,7 @@ export function FoodCard({ listing, compact = false }: { listing: FoodListing; c
               {canClaim ? "Claim food" : "Already claimed"}
             </button>
             {claimError && (
-              <div className="border-4 border-black bg-white p-3 text-sm font-black text-black">
+              <div className="animate-pop border-4 border-black bg-white p-3 text-sm font-black text-black">
                 {claimError}{" "}
                 <Link href="/verify" className="text-[#6f42ff] underline">
                   Verify now &gt;&gt;&gt;

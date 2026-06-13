@@ -47,12 +47,12 @@ export function LiveMyListings() {
 
   return (
     <>
-      <section className="mb-8 grid gap-4 md:grid-cols-3">
+      <section className="stagger-list mb-8 grid gap-4 md:grid-cols-3">
         {groups.map((group) => {
           const count = listings.filter((listing) => listing.status === group.status).length;
           return (
-            <div key={group.label} className="glass-card p-6">
-              <group.icon className="mb-4 size-7" />
+            <div key={group.label} className="group glass-card motion-card p-6">
+              <group.icon className="motion-icon mb-4 size-7" />
               <div className="text-4xl font-black">{count}</div>
               <p className="mt-1 text-sm font-black text-slate-800 dark:text-slate-100">{group.label}</p>
             </div>
@@ -60,11 +60,11 @@ export function LiveMyListings() {
         })}
       </section>
 
-      <section className="mb-10 grid gap-5 lg:grid-cols-4">
+      <section className="stagger-list mb-10 grid gap-5 lg:grid-cols-4">
         {badges.map((badge) => (
           <div
             key={badge.name}
-            className={`border-4 border-black p-5 shadow-[7px_7px_0_#000] ${
+            className={`shine-surface border-4 border-black p-5 shadow-[7px_7px_0_#000] transition duration-300 hover:-translate-y-1 hover:shadow-[10px_10px_0_#000] ${
               badge.unlocked ? "bg-[#f2d38b]" : "bg-white opacity-70 dark:bg-slate-900"
             }`}
           >
@@ -81,9 +81,9 @@ export function LiveMyListings() {
       </section>
 
       {listings.length === 0 ? (
-        <section className="retro-window grid min-h-80 place-items-center p-8 text-center">
+        <section className="retro-window motion-panel grid min-h-80 place-items-center p-8 text-center">
           <div>
-            <Inbox className="mx-auto mb-5 size-14" />
+            <Inbox className="animate-wiggle mx-auto mb-5 size-14" />
             <h2 className="text-3xl font-black">No listings yet</h2>
             <p className="mt-3 font-semibold">Post food first, then restaurant updates will appear here.</p>
           </div>
@@ -99,12 +99,12 @@ export function LiveMyListings() {
                   <StatusPill type="status">{group.status}</StatusPill>
                 </div>
                 {groupListings.length > 0 ? (
-                  <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                  <div className="stagger-list grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                     {groupListings.map((listing) => (
                       <div key={listing.id} className="grid gap-4">
                         <FoodCard listing={listing} compact />
                         {listing.status === "Reserved" && (
-                          <div className="border-4 border-black bg-[#b7e4c7] p-4 text-sm font-black text-black shadow-[6px_6px_0_#000]">
+                          <div className="animate-pop border-4 border-black bg-[#b7e4c7] p-4 text-sm font-black text-black shadow-[6px_6px_0_#000]">
                             <div className="flex items-center gap-2 text-lg">
                               <KeyRound className="size-5" /> Pickup code: {listing.claimCode}
                             </div>
@@ -120,7 +120,7 @@ export function LiveMyListings() {
                             <button
                               type="button"
                               onClick={() => completePickup(listing.id)}
-                              className="mt-4 border-4 border-black bg-white px-4 py-2 font-black text-black shadow-[4px_4px_0_#000]"
+                              className="mt-4 border-4 border-black bg-white px-4 py-2 font-black text-black shadow-[4px_4px_0_#000] transition hover:-translate-y-1 hover:shadow-[7px_7px_0_#000]"
                             >
                               Code matched — mark picked up
                             </button>
@@ -130,7 +130,7 @@ export function LiveMyListings() {
                     ))}
                   </div>
                 ) : (
-                  <div className="border-4 border-black bg-white p-5 font-black shadow-[5px_5px_0_#000] dark:bg-slate-900">
+                  <div className="animate-pop border-4 border-black bg-white p-5 font-black shadow-[5px_5px_0_#000] dark:bg-slate-900">
                     No {group.label.toLowerCase()}.
                   </div>
                 )}

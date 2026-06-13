@@ -31,11 +31,28 @@ function getCandidateModels() {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   return [
     configuredModel,
-    "gemini-flash-latest",
     "gemini-3.5-flash",
+    "gemini-flash-latest",
     "gemini-2.5-flash",
     "gemini-2.5-flash-lite"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
+}
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : "Unknown Gemini API error";
+}
+
+function isGeminiAuthError(error: unknown) {
+  const message = getErrorMessage(error).toLowerCase();
+  return (
+    message.includes("api key not valid") ||
+    message.includes("invalid api key") ||
+    message.includes("invalid authentication credentials") ||
+    message.includes("permission denied") ||
+    message.includes("unauthorized") ||
+    message.includes("403") ||
+    message.includes("401")
+  );
 }
 
 function parseGeminiJson(text: string) {
@@ -185,7 +202,7 @@ export async function POST(req: Request) {
     `;
 
     const parts = [
-      prompt,
+      { text: prompt },
       {
         inlineData: {
           data: buffer.toString("base64"),
@@ -202,7 +219,6 @@ export async function POST(req: Request) {
     for (const modelName of candidates) {
       try {
         const isLegacy = modelName.includes("pro-vision");
-        // Try with JSON mode first for modern models
         const model = genAI.getGenerativeModel({
           model: modelName,
           generationConfig: isLegacy ? {
@@ -218,16 +234,40 @@ export async function POST(req: Request) {
         text = result.response.text();
         if (text) break;
       } catch (error) {
-        // Fallback: try standard content generation if config fails
+        if (isGeminiAuthError(error)) {
+          const message = getErrorMessage(error);
+          console.error("Gemini authentication failed:", message);
+          return NextResponse.json(
+            {
+              error:
+                "Gemini API authentication failed. Replace GEMINI_API_KEY in .env.local with an API key from Google AI Studio, then restart the dev server."
+            },
+            { status: 401 }
+          );
+        }
+
         try {
           const fallbackModel = genAI.getGenerativeModel({ model: modelName });
           const result = await fallbackModel.generateContent(parts);
           text = result.response.text();
           if (text) break;
         } catch (fallbackError) {
-          const message = error instanceof Error ? error.message : "Unknown error";
-          console.error(`Model ${modelName} failed:`, message);
-          errors.push(`${modelName}: ${message}`);
+          if (isGeminiAuthError(fallbackError)) {
+            const message = getErrorMessage(fallbackError);
+            console.error("Gemini authentication failed:", message);
+            return NextResponse.json(
+              {
+                error:
+                  "Gemini API authentication failed. Replace GEMINI_API_KEY in .env.local with an API key from Google AI Studio, then restart the dev server."
+              },
+              { status: 401 }
+            );
+          }
+
+          const primaryMessage = getErrorMessage(error);
+          const fallbackMessage = getErrorMessage(fallbackError);
+          console.error(`Model ${modelName} failed:`, fallbackMessage || primaryMessage);
+          errors.push(`${modelName}: ${fallbackMessage || primaryMessage}`);
         }
       }
     }

@@ -2,9 +2,9 @@ import { AdminApprovals } from "@/components/admin-approvals";
 
 export default function AdminPage() {
   return (
-    <main className="section-shell py-10">
-      <div className="mb-8 max-w-3xl">
-        <p className="mb-3 inline-flex border-4 border-black bg-[#b7e4c7] px-4 py-2 font-black text-black shadow-[5px_5px_0_#000]">
+    <main className="section-shell page-enter py-10">
+      <div className="animate-in mb-8 max-w-3xl">
+        <p className="animate-pop mb-3 inline-flex border-4 border-black bg-[#b7e4c7] px-4 py-2 font-black text-black shadow-[5px_5px_0_#000]">
           Admin review
         </p>
         <h1 className="text-5xl font-black tracking-tight sm:text-6xl">Charity approvals</h1>
@@ -13,7 +13,9 @@ export default function AdminPage() {
           seconds.
         </p>
       </div>
-      <AdminApprovals />
+      <div className="animate-in delay-100">
+        <AdminApprovals />
+      </div>
     </main>
   );
 }

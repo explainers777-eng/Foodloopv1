@@ -21,8 +21,8 @@ export function MetricCard({
   };
 
   return (
-    <div className="glass-card p-6">
-      <div className={`mb-5 grid size-12 place-items-center border-4 border-black ${colors[tone]}`}>
+    <div className="group glass-card motion-card p-6">
+      <div className={`motion-icon mb-5 grid size-12 place-items-center border-4 border-black ${colors[tone]}`}>
         <Icon className="size-6" />
       </div>
       <div className="text-3xl font-black tracking-tight">

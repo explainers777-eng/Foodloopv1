@@ -40,12 +40,12 @@ const features = [
 
 export default function LandingPage() {
   return (
-    <main className="overflow-hidden">
+    <main className="page-enter overflow-hidden">
       <section className="relative py-16 sm:py-24">
         <div className="section-shell grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr]">
-          <div>
-            <div className="mb-6 inline-flex items-center gap-2 border-4 border-black bg-[#b7e4c7] px-4 py-2 text-sm font-black text-black shadow-[6px_6px_0_#000]">
-              <Sparkles className="size-4" /> Food rescue for verified communities
+          <div className="animate-in">
+            <div className="animate-pop mb-6 inline-flex items-center gap-2 border-4 border-black bg-[#b7e4c7] px-4 py-2 text-sm font-black text-black shadow-[6px_6px_0_#000]">
+              <Sparkles className="size-4 animate-wiggle" /> Food rescue for verified communities
             </div>
             <h1 className="max-w-4xl text-5xl font-black tracking-tight text-slate-950 sm:text-6xl lg:text-7xl">
               Welcome to FoodLoop!
@@ -63,14 +63,14 @@ export default function LandingPage() {
               </Link>
             </div>
           </div>
-          <div className="retro-window">
+          <div className="retro-window shine-surface animate-in animate-float delay-200">
             <div className="retro-titlebar">
               <span className="retro-dot" />
               <span className="retro-dot" />
               <span className="retro-dot" />
             </div>
             <div className="grid place-items-center p-8 text-center sm:p-12">
-              <div className="mb-5 grid size-24 place-items-center rounded-full border-4 border-black bg-[#d8a2ff] text-5xl">
+              <div className="pulse-ring mb-5 grid size-24 place-items-center rounded-full border-4 border-black bg-[#d8a2ff] text-5xl">
                 ☺
               </div>
               <h2 className="text-4xl font-black sm:text-5xl">Start &gt;&gt;&gt;</h2>
@@ -95,10 +95,10 @@ export default function LandingPage() {
             scheduling, smart freshness guidance, and visible community impact.
           </p>
         </div>
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="stagger-list grid gap-5 md:grid-cols-3">
           {steps.map((step) => (
-            <div key={step.title} className="glass-card p-6">
-              <div className="mb-5 grid size-12 place-items-center border-4 border-black bg-[#b7e4c7] text-black">
+            <div key={step.title} className="group glass-card motion-card p-6">
+              <div className="motion-icon mb-5 grid size-12 place-items-center border-4 border-black bg-[#b7e4c7] text-black">
                 <step.icon className="size-6" />
               </div>
               <h3 className="text-xl font-black">{step.title}</h3>
@@ -122,10 +122,10 @@ export default function LandingPage() {
               gamification, and impact reporting.
             </p>
           </div>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="stagger-list grid gap-4 sm:grid-cols-2">
             {features.map((feature) => (
-              <div key={feature} className="border-4 border-black bg-[#fffaf0] p-5 text-black shadow-[7px_7px_0_#000]">
-                <BadgeCheck className="mb-4 size-6 text-citrus-400" />
+              <div key={feature} className="group shine-surface border-4 border-black bg-[#fffaf0] p-5 text-black shadow-[7px_7px_0_#000] transition duration-300 hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]">
+                <BadgeCheck className="motion-icon mb-4 size-6 text-citrus-400" />
                 <p className="font-black">{feature}</p>
               </div>
             ))}
@@ -134,7 +134,7 @@ export default function LandingPage() {
       </section>
 
       <section className="section-shell py-16">
-        <div className="grid items-center gap-8 border-4 border-black bg-[#2f6f5e] p-8 text-white shadow-[12px_12px_0_#000] md:grid-cols-[1fr_auto] md:p-12">
+        <div className="shine-surface animate-in grid items-center gap-8 border-4 border-black bg-[#2f6f5e] p-8 text-white shadow-[12px_12px_0_#000] md:grid-cols-[1fr_auto] md:p-12">
           <div>
             <p className="mb-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold">
               <BarChart3 className="size-4" /> Impact-first operations
@@ -157,8 +157,8 @@ export default function LandingPage() {
       </section>
 
       <section className="section-shell pb-20">
-        <div className="glass-card grid gap-6 p-8 md:grid-cols-[auto_1fr_auto] md:items-center">
-          <div className="grid size-16 place-items-center border-4 border-black bg-[#d9825b] text-black">
+        <div className="glass-card motion-card grid gap-6 p-8 md:grid-cols-[auto_1fr_auto] md:items-center">
+          <div className="animate-wiggle grid size-16 place-items-center border-4 border-black bg-[#d9825b] text-black">
             <ShieldCheck className="size-8" />
           </div>
           <div>

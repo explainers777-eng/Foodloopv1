@@ -22,9 +22,9 @@ export default function VerifyPage() {
   }, []);
 
   return (
-    <main className="section-shell py-10">
-      <div className="mb-8 max-w-3xl">
-        <p className="mb-3 inline-flex border-4 border-black bg-[#b7e4c7] px-4 py-2 font-black text-black shadow-[5px_5px_0_#000]">
+    <main className="section-shell page-enter py-10">
+      <div className="animate-in mb-8 max-w-3xl">
+        <p className="animate-pop mb-3 inline-flex border-4 border-black bg-[#b7e4c7] px-4 py-2 font-black text-black shadow-[5px_5px_0_#000]">
           Anti-misuse checkpoint
         </p>
         <h1 className="text-5xl font-black tracking-tight sm:text-6xl">Verify your charity</h1>
@@ -35,9 +35,9 @@ export default function VerifyPage() {
       </div>
 
       {!loading && isVerified ? (
-        <div className="flex flex-col items-center justify-between gap-8 border-4 border-black bg-white p-8 shadow-[10px_10px_0_#000] sm:flex-row">
+        <div className="animate-in flex flex-col items-center justify-between gap-8 border-4 border-black bg-white p-8 shadow-[10px_10px_0_#000] sm:flex-row">
           <div className="flex items-center gap-4">
-            <div className="flex size-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+            <div className="pulse-ring flex size-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
               <CheckCircle2 className="size-10" />
             </div>
             <div>
@@ -55,7 +55,9 @@ export default function VerifyPage() {
           </Link>
         </div>
       ) : (
-        <VerificationForm />
+        <div className="animate-in delay-100">
+          <VerificationForm />
+        </div>
       )}
     </main>
   );

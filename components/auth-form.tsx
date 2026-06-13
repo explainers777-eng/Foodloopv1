@@ -37,7 +37,7 @@ export function AuthForm() {
   }
 
   return (
-    <form className="mt-6 grid gap-4" onSubmit={signIn}>
+    <form className="stagger-list mt-6 grid gap-4" onSubmit={signIn}>
       <label>
         <span className="mb-2 block text-sm font-bold">Email</span>
         <input name="email" className="input" type="email" placeholder="you@example.org" required />
@@ -53,7 +53,7 @@ export function AuthForm() {
         <LockKeyhole className="size-4" /> {loading ? "Sending..." : "Send magic link"}
       </button>
       {message && (
-        <div className="border-4 border-black bg-white p-3 text-sm font-black text-black">
+        <div className="animate-pop border-4 border-black bg-white p-3 text-sm font-black text-black">
           {message}
         </div>
       )}

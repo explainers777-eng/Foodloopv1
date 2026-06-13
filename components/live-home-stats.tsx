@@ -39,10 +39,10 @@ export function LiveHomeStats() {
 
   return (
     <section className="section-shell py-12">
-      <div className="mb-5 border-4 border-black bg-white p-4 font-black shadow-[6px_6px_0_#000]">
+      <div className="animate-in mb-5 border-4 border-black bg-white p-4 font-black shadow-[6px_6px_0_#000]">
         Live totals from actual posted listings. If nothing is posted yet, the numbers stay at zero.
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="stagger-list grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <MetricCard icon={Users} label="Meals claimed" value={totals.meals} tone="green" />
         <MetricCard icon={Recycle} label="Food listed" value={totals.foodKg} suffix=" kg" tone="orange" />
         <MetricCard icon={Leaf} label="Estimated CO₂ impact" value={totals.co2Kg} suffix=" kg" />

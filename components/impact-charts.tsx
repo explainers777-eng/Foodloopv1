@@ -20,8 +20,8 @@ const colors = ["#25a55b", "#ffb23f", "#188247", "#db6815"];
 
 export function ImpactCharts() {
   return (
-    <section className="grid gap-5 lg:grid-cols-[1.4fr_.8fr]">
-      <div className="glass-card rounded-[2rem] p-5">
+    <section className="stagger-list grid gap-5 lg:grid-cols-[1.4fr_.8fr]">
+      <div className="glass-card motion-card rounded-[2rem] p-5">
         <h2 className="mb-5 text-xl font-black">Meals rescued over time</h2>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
@@ -42,7 +42,7 @@ export function ImpactCharts() {
         </div>
       </div>
 
-      <div className="glass-card rounded-[2rem] p-5">
+      <div className="glass-card motion-card rounded-[2rem] p-5">
         <h2 className="mb-5 text-xl font-black">Rescue mix</h2>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
@@ -58,7 +58,7 @@ export function ImpactCharts() {
         </div>
       </div>
 
-      <div className="glass-card rounded-[2rem] p-5 lg:col-span-2">
+      <div className="glass-card motion-card rounded-[2rem] p-5 lg:col-span-2">
         <h2 className="mb-5 text-xl font-black">CO₂ prevented by month</h2>
         <div className="h-72">
           <ResponsiveContainer width="100%" height="100%">

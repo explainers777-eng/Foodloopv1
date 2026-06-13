@@ -27,7 +27,7 @@ export function StatusPill({
   return (
     <span
       className={cn(
-        "inline-flex border-4 border-black px-3 py-1 text-xs font-black",
+        "inline-flex border-4 border-black px-3 py-1 text-xs font-black transition duration-200 hover:-translate-y-0.5 hover:shadow-[3px_3px_0_#000]",
         type === "status"
           ? statusStyles[children as ListingStatus] || "bg-slate-200"
           : freshnessStyles[children as string] || "bg-slate-200",

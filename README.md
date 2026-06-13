@@ -38,7 +38,7 @@ Optional Gemini environment variables for food photo analysis:
 
 ```bash
 GEMINI_API_KEY=your-gemini-api-key
-GEMINI_MODEL=gemini-flash-latest
+GEMINI_MODEL=gemini-3.5-flash
 ```
 
 Apply the database schema from `public/supabase/schema.sql` in the Supabase SQL editor.

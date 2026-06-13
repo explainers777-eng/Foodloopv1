@@ -113,7 +113,7 @@ export function FoodPostForm() {
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
       <form
-        className="glass-card grid gap-5 rounded-[2rem] p-6"
+        className="glass-card motion-panel grid gap-5 rounded-[2rem] p-6"
         onSubmit={async (event) => {
           event.preventDefault();
 
@@ -169,7 +169,7 @@ export function FoodPostForm() {
           setMessage(result.reason ?? "Unable to save listing to Supabase.");
         }}
       >
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="stagger-list grid gap-5 md:grid-cols-2">
           <Field label="Food name">
             <div className="relative">
               <input value={foodName} onChange={(event) => setFoodName(event.target.value)} className="input pr-12" />
@@ -195,7 +195,7 @@ export function FoodPostForm() {
             onChange={(event) => setDescription(event.target.value)}
           />
         </Field>
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="stagger-list grid gap-5 md:grid-cols-2">
           <Field label="Food category">
             <select
               name="category"
@@ -242,7 +242,7 @@ export function FoodPostForm() {
           </div>
         </Field>
 
-        <label className="group relative grid cursor-pointer place-items-center overflow-hidden rounded-[2rem] border-2 border-dashed border-forest-200 bg-forest-50/60 p-8 text-center transition hover:border-forest-500 dark:border-white/10 dark:bg-white/5">
+        <label className="group shine-surface relative grid cursor-pointer place-items-center overflow-hidden rounded-[2rem] border-2 border-dashed border-forest-200 bg-forest-50/60 p-8 text-center transition hover:-translate-y-1 hover:border-forest-500 hover:shadow-[7px_7px_0_#000] dark:border-white/10 dark:bg-white/5">
           {isAnalyzing && (
             <div className="pointer-events-none absolute inset-0 z-10 bg-white/65 backdrop-blur-[2px] dark:bg-slate-950/65">
               <div className="ai-scan-line" />
@@ -253,7 +253,7 @@ export function FoodPostForm() {
             </div>
           )}
           {preview ? (
-            <div className="relative mb-3 w-full overflow-hidden rounded-lg border-4 border-black bg-white">
+            <div className="animate-pop relative mb-3 w-full overflow-hidden rounded-lg border-4 border-black bg-white">
               <Image
                 src={preview}
                 alt="Preview"
@@ -265,7 +265,7 @@ export function FoodPostForm() {
               {isAnalyzing && <ScanLine className="absolute bottom-3 right-3 size-7 animate-pulse text-forest-600" />}
             </div>
           ) : (
-            <div className="mb-3 grid size-16 place-items-center rounded-full border-4 border-black bg-[#ffe89a] shadow-[5px_5px_0_#000] transition group-hover:-translate-y-1">
+            <div className="mb-3 grid size-16 place-items-center rounded-full border-4 border-black bg-[#ffe89a] shadow-[5px_5px_0_#000] transition group-hover:-translate-y-1 group-hover:rotate-3">
               <Camera className="size-8 text-forest-600" />
             </div>
           )}
@@ -291,14 +291,14 @@ export function FoodPostForm() {
         </button>
         
         {message && (
-          <div className={`border-4 border-black p-4 text-sm font-black text-black ${messageTone === "error" ? "bg-red-200" : messageTone === "warning" ? "bg-[#f2d38b]" : "bg-[#b7e4c7]"}`}>
+          <div className={`animate-pop border-4 border-black p-4 text-sm font-black text-black ${messageTone === "error" ? "bg-red-200" : messageTone === "warning" ? "bg-[#f2d38b]" : "bg-[#b7e4c7]"}`}>
             <CheckCircle2 className="mr-2 inline size-4" /> {message}
           </div>
         )}
       </form>
 
-      <aside className="grid h-fit gap-5">
-        <div className="glass-card rounded-[2rem] p-6">
+      <aside className="stagger-list grid h-fit gap-5">
+        <div className="glass-card motion-card rounded-[2rem] p-6">
           <div className="mb-4 flex items-center gap-2 font-bold">
             <Sparkles className="size-5 text-citrus-500" /> AI Food Recognition
           </div>
@@ -310,7 +310,7 @@ export function FoodPostForm() {
             </div>
           ) : aiAnalysis ? (
             <div className="space-y-4">
-              <div className={`inline-flex items-center gap-2 border-4 border-black px-3 py-1 text-xs font-black text-black ${aiAnalysis.status === "fresh" ? "bg-[#b7e4c7]" : "bg-red-200"}`}>
+              <div className={`animate-pop inline-flex items-center gap-2 border-4 border-black px-3 py-1 text-xs font-black text-black ${aiAnalysis.status === "fresh" ? "bg-[#b7e4c7]" : "bg-red-200"}`}>
                 {aiAnalysis.status === "fresh" ? <ShieldCheck className="size-4" /> : <Ban className="size-4" />}
                 {aiAnalysis.status === "fresh" ? "Safe-looking food" : "Blocked as unsafe"}
               </div>
@@ -321,7 +321,7 @@ export function FoodPostForm() {
                 <p className="mb-2 text-xs font-bold uppercase text-slate-400">Freshness Notes</p>
                 <div className="grid gap-2">
                   {aiAnalysis.freshnessNotes.map((note) => (
-                    <div key={note} className="border-4 border-black bg-white p-3 text-xs font-bold text-slate-700">
+                    <div key={note} className="animate-pop border-4 border-black bg-white p-3 text-xs font-bold text-slate-700">
                       {note}
                     </div>
                   ))}
@@ -334,7 +334,7 @@ export function FoodPostForm() {
             <p className="text-sm text-slate-500">Upload a photo to see AI description.</p>
           )}
         </div>
-        <div className="glass-card rounded-[2rem] p-6">
+        <div className="glass-card motion-card rounded-[2rem] p-6">
           <div className="mb-4 font-bold">Freshness Assistant</div>
           <StatusPill type="freshness">{smart.freshness}</StatusPill>
           <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{smart.urgency}</p>

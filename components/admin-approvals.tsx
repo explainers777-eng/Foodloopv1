@@ -45,21 +45,21 @@ export function AdminApprovals() {
   }
 
   if (loading) {
-    return <div className="glass-card p-6 font-black">Loading approval requests...</div>;
+    return <div className="glass-card ai-shimmer p-6 font-black">Loading approval requests...</div>;
   }
 
   return (
-    <section className="grid gap-5">
+    <section className="stagger-list grid gap-5">
       {message && (
-        <div className="border-4 border-black bg-white p-4 text-sm font-black text-black shadow-[5px_5px_0_#000]">
+        <div className="animate-pop border-4 border-black bg-white p-4 text-sm font-black text-black shadow-[5px_5px_0_#000]">
           {message}
         </div>
       )}
 
       {verifications.length === 0 ? (
-        <div className="retro-window grid min-h-72 place-items-center p-8 text-center">
+        <div className="retro-window motion-panel grid min-h-72 place-items-center p-8 text-center">
           <div>
-            <ShieldAlert className="mx-auto mb-4 size-12" />
+            <ShieldAlert className="animate-wiggle mx-auto mb-4 size-12" />
             <h2 className="text-3xl font-black">No pending requests</h2>
             <p className="mt-3 font-semibold text-slate-800">
               New charity verification requests will appear here automatically.
@@ -68,7 +68,7 @@ export function AdminApprovals() {
         </div>
       ) : (
         verifications.map((verification) => (
-          <article key={verification.id} className="glass-card grid gap-5 p-6 md:grid-cols-[1fr_auto]">
+          <article key={verification.id} className="glass-card motion-card grid gap-5 p-6 md:grid-cols-[1fr_auto]">
             <div>
               <h2 className="text-2xl font-black">{verification.organizationName}</h2>
               <div className="mt-3 grid gap-2 text-sm font-semibold text-slate-800 md:grid-cols-2">

@@ -59,8 +59,8 @@ export function VerificationForm() {
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_360px]">
-      <form className="glass-card grid gap-5 p-6" onSubmit={submitVerification}>
-        <div className="grid gap-5 md:grid-cols-2">
+      <form className="glass-card motion-panel grid gap-5 p-6" onSubmit={submitVerification}>
+        <div className="stagger-list grid gap-5 md:grid-cols-2">
           <Field label="Contact name">
             <input name="contactName" className="input" defaultValue={verification?.contactName} required />
           </Field>
@@ -87,7 +87,7 @@ export function VerificationForm() {
         </div>
         <button className="retro-button">Submit for admin approval</button>
         {message && (
-          <div className="border-4 border-black bg-[#b7e4c7] p-4 text-sm font-black text-black">
+          <div className="animate-pop border-4 border-black bg-[#b7e4c7] p-4 text-sm font-black text-black">
             <CheckCircle2 className="mr-2 inline size-4" /> {message}
             {message.includes("sign in") && (
               <Link href="/auth" className="ml-2 underline">
@@ -98,8 +98,8 @@ export function VerificationForm() {
         )}
       </form>
 
-      <aside className="retro-window h-fit p-6">
-        <ShieldCheck className="mb-4 size-10" />
+      <aside className="retro-window motion-panel h-fit p-6">
+        <ShieldCheck className="animate-wiggle mb-4 size-10" />
         <h2 className="text-2xl font-black">Claim access</h2>
         <p className="mt-3 font-semibold text-slate-800">
           Status:{" "}

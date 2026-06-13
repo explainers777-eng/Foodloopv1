@@ -18,10 +18,10 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b-4 border-black bg-[#fffaf0]">
+    <header className="animate-in sticky top-0 z-50 border-b-4 border-black bg-[#fffaf0]">
       <div className="section-shell flex h-20 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-bold tracking-tight">
-          <span className="grid size-11 place-items-center border-4 border-black bg-[#b7e4c7] text-black shadow-[4px_4px_0_#000]">
+          <span className="grid size-11 place-items-center border-4 border-black bg-[#b7e4c7] text-black shadow-[4px_4px_0_#000] transition duration-300 hover:-translate-y-1 hover:rotate-3">
             <Leaf className="size-5" />
           </span>
           <span className="text-2xl font-black">FoodLoop</span>
@@ -32,7 +32,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="border-2 border-transparent px-3 py-2 text-sm font-black text-slate-950 transition hover:border-black hover:bg-white"
+              className="border-2 border-transparent px-3 py-2 text-sm font-black text-slate-950 transition duration-200 hover:-translate-y-0.5 hover:border-black hover:bg-white hover:shadow-[3px_3px_0_#000]"
             >
               {item.label}
             </Link>
@@ -42,14 +42,14 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <Link
             href="/post"
-            className="hidden border-4 border-black bg-[#2f6f5e] px-5 py-2.5 text-sm font-black text-white shadow-[4px_4px_0_#000] transition hover:-translate-y-0.5 sm:inline-flex"
+            className="hidden border-4 border-black bg-[#2f6f5e] px-5 py-2.5 text-sm font-black text-white shadow-[4px_4px_0_#000] transition duration-200 hover:-translate-y-1 hover:shadow-[7px_7px_0_#000] sm:inline-flex"
           >
             Post food
           </Link>
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="grid size-11 place-items-center border-4 border-black bg-white md:hidden"
+            className="grid size-11 place-items-center border-4 border-black bg-white transition hover:-translate-y-0.5 md:hidden"
             aria-label="Open menu"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -69,7 +69,7 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="border-2 border-transparent px-4 py-3 text-sm font-black text-slate-900 hover:border-black hover:bg-white"
+              className="border-2 border-transparent px-4 py-3 text-sm font-black text-slate-900 transition hover:translate-x-1 hover:border-black hover:bg-white"
             >
               {item.label}
             </Link>
