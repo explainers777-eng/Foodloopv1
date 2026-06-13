@@ -31,10 +31,12 @@ function getCandidateModels() {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   return [
     configuredModel,
-    "gemini-2.0-flash",
     "gemini-2.0-flash-exp",
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-lite-preview-02-05",
     "gemini-2.0-pro-exp-02-05",
-    "gemini-pro-vision"
+    "gemini-1.5-flash-latest",
+    "gemini-pro-vision" // Legacy fallback
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -197,17 +199,16 @@ export async function POST(req: Request) {
     const errors: string[] = [];
     let text = "";
 
-    for (const modelName of getCandidateModels()) {
+    const candidates = getCandidateModels();
+
+    for (const modelName of candidates) {
       try {
-        const isLegacy = modelName.includes("pro-vision");
+        // Try with JSON mode first for reliable parsing
         const model = genAI.getGenerativeModel({
           model: modelName,
-          generationConfig: isLegacy ? {
-            temperature: 0.2,
-            maxOutputTokens: 1024,
-          } : {
+          generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.2,
+            temperature: 0.1,
             maxOutputTokens: 1024,
           }
         });
@@ -216,8 +217,17 @@ export async function POST(req: Request) {
         text = result.response.text();
         break;
       } catch (error) {
-        const message = error instanceof Error ? error.message : "Unknown Gemini error";
-        errors.push(`${modelName}: ${message}`);
+        // If JSON mode fails (some models/regions don't support it), try standard mode
+        try {
+          const fallbackModel = genAI.getGenerativeModel({ model: modelName });
+          const result = await fallbackModel.generateContent(parts);
+          text = result.response.text();
+          if (text) break;
+        } catch (fallbackError) {
+          const message = error instanceof Error ? error.message : "Unknown error";
+          console.error(`Model ${modelName} failed:`, message);
+          errors.push(`${modelName}: ${message}`);
+        }
       }
     }
 

@@ -12,7 +12,7 @@ const freshnessStyles: Record<string, string> = {
   Fresh: "bg-[#b7e4c7] text-black",
   "Use Soon": "bg-[#f2d38b] text-black",
   Urgent: "bg-[#d9825b] text-black", // Assuming Urgent is still a valid status
-  Spoilt: "bg-red-600 text-white", // Added style for 'Spoilt' status
+  Spoilt: "bg-red-600 text-white border-red-800", // Enhanced style for 'Spoilt' status
 };
 
 export function StatusPill({
