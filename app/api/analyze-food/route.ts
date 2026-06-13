@@ -32,8 +32,10 @@ function getCandidateModels() {
   return [
     configuredModel,
     "gemini-2.0-flash",
+    "gemini-2.0-flash-exp",
+    "gemini-1.5-flash-latest",
     "gemini-1.5-flash",
-    "gemini-1.5-flash-latest"
+    "gemini-1.5-pro"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -163,7 +165,7 @@ export async function POST(req: Request) {
     console.log("All GEMINI keys in env:", Object.keys(process.env).filter(k => k.startsWith('GEMINI')));
 
     if (!API_KEY) {
-      return NextResponse.json({ error: "API Key Missing. Next.js cannot find GEMINI_API_KEY. Verify .env.local is in the root folder and RESTART your terminal." }, { status: 500 });
+      return NextResponse.json({ error: "Gemini API Key is missing. If you are on Vercel, add GEMINI_API_KEY to your Project Settings > Environment Variables. If local, check .env.local and restart." }, { status: 500 });
     }
 
     const genAI = new GoogleGenerativeAI(API_KEY);

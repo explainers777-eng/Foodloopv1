@@ -99,7 +99,7 @@ export function FoodPostForm() {
       }
     } catch (err) {
       setMessageTone("error");
-      setMessage(`AI Analysis failed: ${err instanceof Error ? err.message : "Check your connection and API key."}`);
+      setMessage(`AI Analysis Error: ${err instanceof Error ? err.message : "The server could not reach Gemini. Check your internet or API key."}`);
       setFile(null);
       setPreview(null);
       setAiAnalysis(null);
