@@ -31,12 +31,12 @@ function getCandidateModels() {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   return [
     configuredModel,
-    "gemini-2.0-flash-exp",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-lite-preview-02-05",
-    "gemini-2.0-pro-exp-02-05",
+    "gemini-1.5-flash",
     "gemini-1.5-flash-latest",
-    "gemini-pro-vision" // Legacy fallback
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-exp",
+    "gemini-1.5-pro",
+    "gemini-pro-vision"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -165,7 +165,7 @@ export async function POST(req: Request) {
     const prompt = `
       Analyze this uploaded food image for a food donation app.
 
-      Decide whether the visible food is safe-looking/fresh or spoilt/unsafe.
+      MANDATORY STEP: Decide whether the visible food is safe-looking/fresh or spoilt/unsafe.
       Return "spoilt" if:
       - the image is unclear, too dark, not food, or does not show enough food detail
       - there is visible mold, rot, discoloration, slime, leakage, pests, bad packaging, or other spoilage signs
@@ -203,21 +203,24 @@ export async function POST(req: Request) {
 
     for (const modelName of candidates) {
       try {
-        // Try with JSON mode first for reliable parsing
+        const isLegacy = modelName.includes("pro-vision");
+        // Try with JSON mode first for modern models
         const model = genAI.getGenerativeModel({
           model: modelName,
-          generationConfig: {
+          generationConfig: isLegacy ? {
+            temperature: 0.1,
+            maxOutputTokens: 1024,
+          } : {
             responseMimeType: "application/json",
             temperature: 0.1,
             maxOutputTokens: 1024,
           }
         });
-
         const result = await model.generateContent(parts);
         text = result.response.text();
-        break;
+        if (text) break;
       } catch (error) {
-        // If JSON mode fails (some models/regions don't support it), try standard mode
+        // Fallback: try standard content generation if config fails
         try {
           const fallbackModel = genAI.getGenerativeModel({ model: modelName });
           const result = await fallbackModel.generateContent(parts);

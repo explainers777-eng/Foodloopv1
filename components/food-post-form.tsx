@@ -99,7 +99,7 @@ export function FoodPostForm() {
       }
     } catch (err) {
       setMessageTone("error");
-      setMessage(`AI Analysis failed. It might be due to model availability in your region or an invalid API key.`);
+      setMessage(`AI Analysis failed: ${err instanceof Error ? err.message : "Check your connection and API key."}`);
       setFile(null);
       setPreview(null);
       setAiAnalysis(null);
