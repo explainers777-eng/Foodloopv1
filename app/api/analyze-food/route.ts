@@ -31,8 +31,10 @@ function getCandidateModels() {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   return [
     configuredModel,
-    "gemini-1.5-flash",
-    "gemini-1.5-pro"
+    "gemini-2.0-flash",
+    "gemini-2.0-flash-exp",
+    "gemini-2.0-pro-exp-02-05",
+    "gemini-pro-vision"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -197,9 +199,13 @@ export async function POST(req: Request) {
 
     for (const modelName of getCandidateModels()) {
       try {
+        const isLegacy = modelName.includes("pro-vision");
         const model = genAI.getGenerativeModel({
           model: modelName,
-          generationConfig: {
+          generationConfig: isLegacy ? {
+            temperature: 0.2,
+            maxOutputTokens: 1024,
+          } : {
             responseMimeType: "application/json",
             temperature: 0.2,
             maxOutputTokens: 1024,
