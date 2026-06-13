@@ -89,7 +89,7 @@ export function FoodPostForm() {
       if (Number.isFinite(Number(data.estimatedPreparedHours))) {
         setHoursSincePrepared(Math.min(24, Math.max(0, Number(data.estimatedPreparedHours))));
       }
-      setDescription(data.description);
+      setDescription(data.description); // Auto-fill the charity description
       if (data.status === "spoilt") {
         setMessageTone("error");
         setMessage("AI Analysis: This food appears to be spoilt and cannot be posted.");
@@ -99,7 +99,7 @@ export function FoodPostForm() {
       }
     } catch (err) {
       setMessageTone("error");
-      setMessage(`AI Analysis Error: ${err instanceof Error ? err.message : "The server could not reach Gemini. Check your internet or API key."}`);
+      setMessage(`AI Analysis Error: ${err instanceof Error ? err.message : "The server could not verify food freshness. Check your internet or API key."}`);
       setFile(null);
       setPreview(null);
       setAiAnalysis(null);

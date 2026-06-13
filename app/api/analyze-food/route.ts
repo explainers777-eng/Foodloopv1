@@ -32,10 +32,9 @@ function getCandidateModels() {
   return [
     configuredModel,
     "gemini-2.0-flash",
-    "gemini-2.0-flash-exp",
-    "gemini-1.5-flash-latest",
     "gemini-1.5-flash",
-    "gemini-1.5-pro"
+    "gemini-1.5-pro",
+    "gemini-pro-vision"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
@@ -186,14 +185,15 @@ export async function POST(req: Request) {
 
     const prompt = `
       Analyze this uploaded food image for a food donation app.
+      MANDATORY STEP: Determine if the food is fresh or spoilt. 
 
-      MANDATORY STEP: Decide whether the visible food is safe-looking/fresh or spoilt/unsafe.
       Return "spoilt" if:
       - the image is unclear, too dark, not food, or does not show enough food detail
       - there is visible mold, rot, discoloration, slime, leakage, pests, bad packaging, or other spoilage signs
       - you cannot confidently verify the food condition from the photo
       
-      Return only one valid JSON object. Do not wrap it in markdown.
+      Return only one valid JSON object.
+      Provide a highly detailed "description" meant for a charity organization that will receive this food. Describe its condition, appearance, and suitability for donation in a way that helps the charity understand exactly what they are getting.
       Keep every string on one line. Do not use unescaped quote marks inside string values.
       Use this exact structure:
       {
