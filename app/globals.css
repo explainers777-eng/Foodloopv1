@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f6efe4;
+  background-image:
+    linear-gradient(#d7c2a8 2px, transparent 2px),
+    linear-gradient(90deg, #d7c2a8 2px, transparent 2px);
+  background-size: 72px 72px;
+}
+
+::selection {
+  background: #ffb23f;
+  color: #092617;
+}
+
+@layer components {
+  .glass-card {
+    @apply border-4 border-black bg-[#fffaf0] shadow-[10px_10px_0_#000] backdrop-blur-none dark:border-black dark:bg-[#1f2933] dark:shadow-[10px_10px_0_#b7e4c7];
+  }
+
+  .section-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .input {
+    @apply w-full rounded-none border-4 border-black bg-white px-4 py-3 text-sm font-bold outline-none transition placeholder:text-slate-400 focus:bg-[#fffaf0] dark:border-black dark:bg-slate-950;
+  }
+
+  .retro-window {
+    @apply border-4 border-black bg-[#fffaf0] shadow-[14px_14px_0_#000] dark:bg-[#1f2933] dark:shadow-[14px_14px_0_#b7e4c7];
+  }
+
+  .retro-titlebar {
+    @apply flex h-12 items-center gap-3 border-b-4 border-black bg-[#ffe89a] px-5 dark:bg-[#2e2157];
+  }
+
+  .retro-dot {
+    @apply size-4 rounded-full border-4 border-black bg-black dark:bg-[#b7e4c7];
+  }
+
+  .retro-button {
+    @apply inline-flex items-center justify-center border-4 border-black bg-[#2f6f5e] px-5 py-3 font-black text-white shadow-[6px_6px_0_#000] transition hover:-translate-y-1 hover:shadow-[9px_9px_0_#000] disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-600;
+  }
+
+  .ai-scan-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20%;
+    height: 42%;
+    border-top: 4px solid #188247;
+    border-bottom: 4px solid #188247;
+    background: linear-gradient(180deg, transparent, rgba(183, 228, 199, 0.55), transparent);
+    animation: ai-scan 1.45s ease-in-out infinite;
+  }
+
+  .ai-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-shimmer::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, rgba(255, 232, 154, 0.9), transparent);
+    animation: ai-shimmer 1.2s linear infinite;
+  }
+}
+
+@keyframes ai-scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(340%);
+  }
+}
+
+@keyframes ai-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
