@@ -17,9 +17,14 @@ FoodLoop is a production-style food rescue platform built with Next.js, React, T
 
 ## Getting Started
 
+1. **Clone the repo**
+2. **Setup Environment Variables:**
+   Copy `.env.local.example` to a new file named `.env.local` and add your keys.
+   Note: `.env.local` is ignored by Git for security.
+
 ```bash
-npm install
-npm run dev
+cp .env.local.example .env.local
+# Now edit .env.local with your real keys
 ```
 
 Optional Supabase environment variables:
