@@ -155,6 +155,7 @@ function normalizeAnalysis(raw: unknown): FoodAnalysis {
 export async function POST(req: Request) {
   try {
     const API_KEY = process.env.GEMINI_API_KEY?.trim() || "";
+    console.log("API Key present:", !!API_KEY);
 
     if (!API_KEY) {
       return NextResponse.json({ error: "Gemini API Key is not configured in .env.local. Please ensure the file exists in the project root and restart your development server." }, { status: 500 });
