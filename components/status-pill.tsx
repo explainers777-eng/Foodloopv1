@@ -29,8 +29,8 @@ export function StatusPill({
       className={cn(
         "inline-flex border-4 border-black px-3 py-1 text-xs font-black",
         type === "status"
-          ? statusStyles[children as ListingStatus]
-          : freshnessStyles[children as FreshnessLevel],
+          ? statusStyles[children as ListingStatus] || "bg-slate-200"
+          : freshnessStyles[children as string] || "bg-slate-200",
         className
       )}
     >
