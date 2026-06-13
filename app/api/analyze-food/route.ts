@@ -154,11 +154,16 @@ function normalizeAnalysis(raw: unknown): FoodAnalysis {
 
 export async function POST(req: Request) {
   try {
-    const API_KEY = process.env.GEMINI_API_KEY?.trim() || "";
-    console.log("API Key present:", !!API_KEY);
+    // Next.js sometimes needs a direct reference or a reload of the process to see .env changes
+    const API_KEY = (process.env.GEMINI_API_KEY || "").trim();
+    
+    // Diagnostic logging for your terminal (not visible in browser)
+    console.log("--- Gemini Env Debug ---");
+    console.log("GEMINI_API_KEY defined:", !!API_KEY);
+    console.log("All GEMINI keys in env:", Object.keys(process.env).filter(k => k.startsWith('GEMINI')));
 
     if (!API_KEY) {
-      return NextResponse.json({ error: "Gemini API Key is not configured in .env.local. Please ensure the file exists in the project root and restart your development server." }, { status: 500 });
+      return NextResponse.json({ error: "API Key Missing. Next.js cannot find GEMINI_API_KEY. Verify .env.local is in the root folder and RESTART your terminal." }, { status: 500 });
     }
 
     const genAI = new GoogleGenerativeAI(API_KEY);
