@@ -31,12 +31,10 @@ function getCandidateModels() {
   const configuredModel = process.env.GEMINI_MODEL?.trim();
   return [
     configuredModel,
-    "gemini-1.5-flash",
-    "gemini-1.5-flash-latest",
-    "gemini-2.0-flash",
-    "gemini-2.0-flash-exp",
-    "gemini-1.5-pro",
-    "gemini-pro-vision"
+    "gemini-flash-latest",
+    "gemini-3.5-flash",
+    "gemini-2.5-flash",
+    "gemini-2.5-flash-lite"
   ].filter((model, index, models): model is string => Boolean(model) && models.indexOf(model) === index);
 }
 
